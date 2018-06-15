@@ -1,0 +1,24 @@
+Universe             = vanilla
+Executable           = wraper.sh
+
+GetEnv               = false
++RequiresCVMFS       = True
++RequiresSharedFS    = True
+
+WhenToTransferOutput = On_Exit 
+ShouldTransferFiles  = yes 
++IsFastQueueJob      = True 
+request_memory       = 1000 
+request_disk         = 2048000
+
+
+NProcesses = SPLITTING
+
+Initialdir = results
+Arguments            =  $(Process) 
+Transfer_Input_Files = ../delphes,../configLHE.cmnd,../userproxy,../split_files/output_events$(Process).lhe
+Transfer_output_files = delphes_output$(Process).root
+output               = output$(Process).out
+Log                  = select.log 
+
+Queue $(NProcesses)
