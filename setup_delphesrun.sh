@@ -2,10 +2,10 @@
 ######### INPUT VARIABLES #######
 #################################
 
-work_dir=WZ_delphes
+work_dir=QCD_WZ_delphes
 scratch=/nfs_scratch/dteague
 splitting=300
-input_file=Pol_WZ_decayed.lhe
+input_file=QCD_WZ_decayed.lhe
 submit_dir=submit
 
 #################################
@@ -26,23 +26,24 @@ if [ ! -d $scratch/$work_dir/split_files ]; then
 fi
 rm -f $scratch/$work_dir/split_files/*
 
-
 run_events=$(grep -m 1 "Number of Events" $input_file | awk '{print $NF}')
 run_events=$[ $run_events / $splitting ]
 sed 's/NUMBER_EVENTS/'$run_events'/g' < $submit_dir/configLHE.cmnd > $scratch/$work_dir/configLHE.cmnd
 
-cp submit_dir/wraper.sh $scratch/$work_dir/wraper.sh
-sed "s/SPLITTING/$splitting/g" <submit_dir/submit.condor > $scratch/$work_dir/submit.condor
+cp $submit_dir/wraper.sh $scratch/$work_dir/wraper.sh
+sed "s/SPLITTING/$splitting/g" <$submit_dir/submit.condor > $scratch/$work_dir/submit.condor
+
+cp delphes.tar.gz $scratch/$work_dir
 
 if [ ! -d $scratch/$work_dir/results ]; then
     mkdir $scratch/$work_dir/results
 fi
 #rm -f $scratch/$work_dir/results/*
 
-echo "Do you wish to run the Splitting program?"
+echo "Do you wish to run the Splitting program? (give the number of the choice)"
 select yn in "Yes" "No"; do
     case $yn in
-        Yes ) python lhe_splitter.py $input_file $splitting $scratch/$work_dir; break;;
+        Yes ) python $submit_dir/lhe_splitter.py $input_file $splitting $scratch/$work_dir; break;;
         No ) break;;
     esac
 done
