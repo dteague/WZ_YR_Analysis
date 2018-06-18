@@ -16,7 +16,7 @@ NProcesses = SPLITTING
 
 Initialdir = results
 Arguments            =  $(Process) 
-Transfer_Input_Files = ../delphes,../configLHE.cmnd,../userproxy,../split_files/output_events$(Process).lhe
+Transfer_Input_Files = ../delphes.tar.gz,../configLHE.cmnd,../userproxy,../split_files/output_events$(Process).lhe
 Transfer_output_files = delphes_output$(Process).root
 output               = output$(Process).out
 Log                  = select.log 

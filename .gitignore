@@ -1,1 +1,6 @@
 delphes_export
+*~
+lhe_sup/*~
+MadGraph5_v1_5_14
+src/*~
+submit/*~

@@ -15,9 +15,11 @@ export LD_LIBRARY_PATH=$PYTHIA8/lib:$LD_LIBRARY_PATH
 process=$1
 
 card=delphes/cards/CMS_PhaseII/CMS_PhaseII_140PU_v02.tcl
+MinBias="delphes/MinBias.pileup"
 
+tar -xzf delphes.tar.gz
 sed -i'' -e "s/INPUT_FILE/output_events${process}.lhe/g" configLHE.cmnd
-ls
+sed -i -e "s/\(set PileUpFile\).*/\1 $MinBias/g" $card
 ./delphes/DelphesPythia8 $card configLHE.cmnd delphes_output$process.root 2>&1 || exit $? 
 #strace -o trace.log -e trace=open -f ./runSelector $@
 

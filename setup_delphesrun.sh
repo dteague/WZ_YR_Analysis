@@ -2,7 +2,7 @@
 ######### INPUT VARIABLES #######
 #################################
 
-work_dir=QCD_WZ_delphes
+work_dir=WZ_delphes
 scratch=/nfs_scratch/dteague
 splitting=300
 input_file=Pol_WZ_decayed.lhe
@@ -10,14 +10,6 @@ submit_dir=submit
 
 #################################
 #################################
-
-if [[ -z $inputfile || ! -f $inputfile ]]; then
-    echo "Could not find file:"
-    echo $inputfile
-    echo "Submit again"
-    exit 1
-fi
-
 
 if [ ! -d $scratch/$work_dir ]; then
     mkdir $scratch/$work_dir
